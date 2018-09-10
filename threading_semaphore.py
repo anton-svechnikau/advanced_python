@@ -36,7 +36,7 @@ if __name__ == '__main__':
     sem_1 = threading.Semaphore(1)
     sem_2 = threading.Semaphore(0)
 
-    th_1= threading.Thread(target=print_even_nums, args=(sem_1, sem_2))
+    th_1 = threading.Thread(target=print_even_nums, args=(sem_1, sem_2))
     th_2 = threading.Thread(target=print_odd_nums, args=(sem_1, sem_2))
 
     th_1.start()
