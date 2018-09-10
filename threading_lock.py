@@ -36,12 +36,12 @@ class NewThread(threading.Thread):
 
 def print_num(thread, even, delay):
     """Print numbers."""
-    for i in range(0, 10):
-        time.sleep(delay)
-        if even and i % 2 == 0:
-                print('{}: {}'.format(thread.name, i))
-        elif not even and i % 2 != 0:
+    for i in range(101):
+    time.sleep(delay)
+    if even and i % 2 == 0:
             print('{}: {}'.format(thread.name, i))
+    elif not even and i % 2 != 0:
+        print('{}: {}'.format(thread.name, i))
 
 
 if __name__ == '__main__':
