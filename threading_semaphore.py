@@ -42,4 +42,3 @@ if __name__ == '__main__':
     th_1.start()
     time.sleep(1)
     th_2.start()
-    
