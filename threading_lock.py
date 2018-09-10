@@ -29,32 +29,26 @@ class NewThread(threading.Thread):
     def run(self):
         """Standard method of Thread class."""
         print('starting {}'.format(self.name))
-        LOCK.acquire()
         print_num(self, self.is_even, self.delay)
-        LOCK.release()
 
 
 def print_num(thread, even, delay):
     """Print numbers."""
     for i in range(101):
-    time.sleep(delay)
-    if even and i % 2 == 0:
+        time.sleep(delay)
+        LOCK.acquire()
+        if even and i % 2 == 0:
             print('{}: {}'.format(thread.name, i))
-    elif not even and i % 2 != 0:
-        print('{}: {}'.format(thread.name, i))
+        elif not even and i % 2 != 0:
+            print('{}: {}'.format(thread.name, i))
+        LOCK.release()
 
 
 if __name__ == '__main__':
-    t1 = NewThread('thread_1', 1, True)
-    t2 = NewThread('thread_2', 1, False)
+    t1 = NewThread('thread_1', 0.1, True)
+    t2 = NewThread('thread_2', 0.1, False)
 
     threads = (t1, t2)
 
     for t in threads:
         t.start()
-
-    for t in threads:
-        print('j')
-        t.join()
-
-    print('main thread')
