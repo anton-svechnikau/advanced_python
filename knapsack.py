@@ -4,6 +4,7 @@ HW -- 10.
 Knapsack problem.
 """
 
+from itertools import accumulate
 
 def knapsack_problem(raw_data):
     """Solution of the knapsack problem."""
@@ -13,13 +14,13 @@ def knapsack_problem(raw_data):
         reverse=True
     )
 
-    total = 0
-    l = []
+    knapsack_weight = 0
+    knapsack = []
     for i in sorted_items_list:
-        if (total + float(i[1])) <= 400:
-            l.append(i)
-            total += float(i[1])
-    return l, total
+        if (knapsack_weight + float(i[1])) <= 400:
+            knapsack.append(i)
+            knapsack_weight += float(i[1])
+    return knapsack
 
 
 if __name__ == '__main__':
