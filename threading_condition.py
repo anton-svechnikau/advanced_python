@@ -17,22 +17,17 @@ import time
 def print_nums(condition, is_even):
     """Print numbers."""
     print('call {}'.format('numbers'))
-    with condition:
-        condition.wait()
-        for i in range(101):
-            time.sleep(1)
-            if is_even and i % 2 == 0:
-                print('number {}'.format(i))
-            elif not is_even and i % 2 != 0:
-                print('number {}'.format(i))
-
-
-def notifier(condition):
-    """Notify other threads."""
-    print('call {}'.format('notifier'))
-    with condition:
-        condition.notifyAll()
-        print('notified all')
+    for i in range(101):
+        condition.acquire()
+        condition.notify_all()
+        time.sleep(0.5)
+        if is_even and not i % 2:
+            print('number {}'.format(i))
+            condition.wait()
+        elif not is_even and i % 2:
+            print('number {}'.format(i))
+            condition.wait()
+        condition.release()
 
 
 if __name__ == '__main__':
@@ -47,13 +42,9 @@ if __name__ == '__main__':
         target=print_nums,
         args=(condition, False)
     )
-    th3 = threading.Thread(
-        name='Thread_3',
-        target=notifier,
-        args=(condition,)
-    )
-    threads = (th1, th2, th3)
 
-    for th in threads:
-        th.start()
-        time.sleep(1)
+    th1.start()
+    th2.start()
+
+    # th1.join()
+    th2.join()
