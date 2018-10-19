@@ -23,6 +23,7 @@ def print_nums(lock, even, proc_name):
             print("Number in {}: {}".format(proc_name, n))
         lock.release()
 
+
 if __name__ == '__main__':
     LOCK = Lock()
 
