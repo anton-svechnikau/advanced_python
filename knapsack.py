@@ -4,7 +4,6 @@ HW -- 10.
 Knapsack problem.
 """
 
-from itertools import accumulate
 
 def knapsack_problem(raw_data):
     """Solution of the knapsack problem."""
