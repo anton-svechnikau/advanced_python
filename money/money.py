@@ -1,4 +1,4 @@
-"""
+    """
 HW -- 7.
 
 Implement money object.
@@ -135,31 +135,32 @@ class Money:
         """Division operation for the object."""
         if isinstance(other, int) or isinstance(other, float):
             return Money(self.amount / Decimal(str(other)), self.currency)
-        elif isinstance(other, Money):
-            if self.currency == other.currency:
-                return Money(self.amount / other.amount, self.currency)
-            else:
-                try:
-                    if other.currency == 'USD':
-                        currency_pair = other.currency + self.currency
-                    else:
-                        currency_pair = STANDART_CURRENCY + other.currency
-                    other_currency_rate = Decimal(str(RATES.get(currency_pair)))
-                except Exception as exp:
-                    raise ValueError(exp)
-                else:
-                    if other.currency == 'USD':
-                        return Money(
-                            self.amount / (other.amount * other_currency_rate),
-                            self.currency
-                        )
-                    else:
-                        return Money(
-                            self.amount / (other.amount / other_currency_rate),
-                            self.currency
-                        )
-        else:
+
+        if not isinstance(other, Money):
             raise TypeError
+
+        if self.currency == other.currency:
+            return Money(self.amount / other.amount, self.currency)
+        else:
+            try:
+                if other.currency == 'USD':
+                    currency_pair = other.currency + self.currency
+                else:
+                    currency_pair = STANDART_CURRENCY + other.currency
+                other_currency_rate = Decimal(str(RATES.get(currency_pair)))
+            except Exception as exp:
+                raise ValueError(exp)
+            else:
+                if other.currency == 'USD':
+                    return Money(
+                        self.amount / (other.amount * other_currency_rate),
+                        self.currency
+                    )
+                else:
+                    return Money(
+                        self.amount / (other.amount / other_currency_rate),
+                        self.currency
+                    )
 
     def __rtruediv__(self, other):
         """Division operation for the object."""
